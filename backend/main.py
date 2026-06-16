@@ -146,8 +146,8 @@ def get_livro(db:Session, livro_id: int):
     return db.query(Livro).filter(Livro.id == livro_id).first()
 
 #GET *
-def get_livros(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(Livro).offset(skip).limit(limit).all()
+def get_livros(db: Session):
+    return db.query(Livro).all()
 
 #UpD8
 def update_livro(db:Session, livro_id: int, livro: LivroCreate):
@@ -181,6 +181,29 @@ def create_aluno(db: Session, aluno: AlunoCreate):
     db.refresh(db_aluno)
     return db_aluno
 
+#Get *
+def get_alunos(db:Session):
+    return db.query(Aluno).all()
+
+#get id
+def get_aluno(db: Session, aluno_id: int,):
+    return db.query(Aluno).filter(Aluno.id == aluno_id).first()
+
+#upd8
+def update_aluno(db: Session, aluno_id: int, aluno: AlunoCreate):
+    db_aluno = get_aluno(db,aluno_id)
+    if db_aluno is None:
+        return None
+    db_aluno.nome = aluno.nome,
+    db_aluno.curso = aluno.curso,
+    db_aluno.email = aluno.email,
+    db_aluno.endereco = aluno.endereco,
+    db_aluno.telefone = aluno.telefone
+    db.add(db_aluno)
+    db.commit()
+    db.refresh(db_aluno)
+    return db_aluno
+
 #CRUD EMPRÉSTIMO
 #CREATE
 def create_emprestimo(db: Session, emprestimo:EmprestimoCreate):
@@ -207,22 +230,22 @@ app.add_middleware(
 )
 
 #ROTAs-Livros
-@app.post("/livro/", response_model=LivroResponse)
+@app.post("/livros/", response_model=LivroResponse)
 def create_livro_endpoint(livro: LivroCreate, db: Session = Depends(get_db)):
     return create_livro(db, livro)
 
-@app.get("/livro/", response_model=list[LivroResponse])
-def get_livros_endpoint(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    return get_livros(db, skip=skip, limit=limit)
+@app.get("/livros/", response_model=list[LivroResponse])
+def get_livros_endpoint(db: Session = Depends(get_db)):
+    return get_livros(db)
 
-@app.get("/livro/{livro_id}", response_model=LivroResponse)
+@app.get("/livros/{livro_id}", response_model=LivroResponse)
 def get_livro_endpoint(livro_id: int, db: Session = Depends(get_db)):
     db_livro = get_livro(db, livro_id)
     if db_livro is None:
         raise HTTPException(status_code=404, detail="Livro não encontrado")
     return db_livro
 
-@app.put("/livro/{livro_id}", response_model=LivroResponse)
+@app.put("/livros/{livro_id}", response_model=LivroResponse)
 def update_livro_endpoint(livro_id: int, livro:LivroCreate, db: Session = Depends(get_db)):
     db_livro = update_livro(db, livro_id, livro)
     if db_livro is None:
@@ -231,11 +254,30 @@ def update_livro_endpoint(livro_id: int, livro:LivroCreate, db: Session = Depend
     
 
 #ROTAS-Alunos
-@app.post("/aluno/", response_model=AlunoResponse)
+@app.post("/alunos/", response_model=AlunoResponse)
 def create_aluno_endpoint(aluno: AlunoCreate, db: Session = Depends(get_db)):
     return create_aluno(db, aluno)
 
+@app.get("/alunos/", response_model=list[AlunoResponse])
+def get_alunos_endpoint(db: Session = Depends(get_db)):
+    return get_alunos(db)
+
+@app.get("/alunos/{aluno_id}", response_model=AlunoResponse)
+def get_aluno_endpoint(aluno_id: int, db: Session = Depends(get_db)):
+    db_aluno = get_aluno(db, aluno_id)
+    if db_aluno is None:
+        raise HTTPException(status_code=404, detail="Aluno não encontrado")
+    return db_aluno
+
+@app.put("/alunos/{aluno_id}", response_model=AlunoResponse)
+def pootis_aluno_endpoint(aluno_id: int, aluno: AlunoCreate ,db: Session = Depends(get_db)):
+    db_aluno = update_aluno(db, aluno_id, aluno)
+    if db_aluno is None:
+        raise HTTPException(status_code=404, detail="Aluno não encontrado")
+    return db_aluno
+
+
 #ROTAS-EMprestimo
-@app.post("/emprestimo/", response_model=EmprestimoResponse)
+@app.post("/emprestimos/", response_model=EmprestimoResponse)
 def create_emprestimo_endpoint(emprestimo: EmprestimoCreate, db: Session = Depends(get_db)):
     return create_emprestimo(db, emprestimo)

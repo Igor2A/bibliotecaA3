@@ -1,4 +1,4 @@
- const apiUrl = 'http://127.0.0.1:8000/alunos/'
+ const apiUrl = 'http://127.0.0.1:8000/emprestimos/'
 
 fetch(apiUrl)
   .then(res => res.json())
@@ -10,11 +10,8 @@ fetch(apiUrl)
 
       tr.innerHTML = `
         <td>${item.id}</td>
-        <td>${item.nome}</td>
-        <td>${item.curso}</td>
-        <td>${item.email}</td>
-        <td>${item.endereco}</td>
-        <td>${item.telefone}</td>
+        <td>${item.aluno}</td>
+        <td>${item.livro}</td>
       `;
 
       tbody.appendChild(tr);

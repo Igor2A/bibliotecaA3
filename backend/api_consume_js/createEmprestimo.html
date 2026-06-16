@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>api - create </title>
+    </head>
+    <body>
+        <script>
+
+            // dados a serem enviados pela solicitação POST
+            let data = {
+             aluno: 1,
+             livro: 1
+            }
+
+            fetch('http://127.0.0.1:8000/emprestimo/', {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+            })
+            .then(response => response.json()) 
+            .then(json => console.log(json))
+            .catch(err => console.log(err));
+        </script>
+    </body>
+</html>

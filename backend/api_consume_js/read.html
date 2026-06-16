@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>API - read</title>
+    </head>
+    <body>
+        <script>
+            const apiUrl = 'http://127.0.0.1:8000/alunos/2';
+
+
+            fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        </script>
+        
+    </body>
+</html>

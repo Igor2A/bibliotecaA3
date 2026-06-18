@@ -1,0 +1,122 @@
+{
+  "info": {
+    "_postman_id": "8648e198-b1d5-497f-8ac9-31fd33f67f56",
+    "name": "Biblioteca A3",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55935793",
+    "_collection_link": "https://go.postman.co/collection/55935793-8648e198-b1d5-497f-8ac9-31fd33f67f56?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "livros",
+      "item": [
+        {
+          "name": "CreateLivro",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\": \"testPostmanNome\",\r\n    \"autor\": \"testPostmanAutor\",\r\n    \"editora\": \"testPostmanEditora\",\r\n    \"ano\": 2999,\r\n    \"edicao\": 99,\r\n    \"numero_pags\": 99,\r\n    \"categoria\": \"testPostmanCategoria\",\r\n    \"idioma\": \"portu-ingrês\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/livros/",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "livros",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "alunos",
+      "item": [
+        {
+          "name": "CreateAluno",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\": \"testePostmanAlunoNome\",\r\n    \"curso\": \"testePostmanCurso\",\r\n    \"email\": \"testePostm@nTeste.com.test\",\r\n    \"endereco\": \"ruaPostmanTestes, n 0\",\r\n    \"telefone\": \"(99)99999-9999\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/alunos/",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "alunos",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "emprestimos",
+      "item": [
+        {
+          "name": "CreateEmprestimo",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"aluno\": 1,\r\n    \"livro\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/emprestimos/",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "emprestimos",
+                ""
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

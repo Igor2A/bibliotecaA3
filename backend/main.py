@@ -215,6 +215,15 @@ def create_emprestimo(db: Session, emprestimo:EmprestimoCreate):
     db.refresh(db_emprestimo)
     return db_emprestimo
 
+#GET *
+def get_emprestimos(db):
+    return db.query(Emprestimo).all()
+
+#Get_id
+def get_emprestimo(db, emprestimo_id):
+    return db.query(Emprestimo).filter(Emprestimo.id == emprestimo_id).first()
+
+
 #API Endpoints
 app = FastAPI()
 
@@ -280,3 +289,17 @@ def pootis_aluno_endpoint(aluno_id: int, aluno: AlunoCreate ,db: Session = Depen
 @app.post("/emprestimos/", response_model=EmprestimoResponse)
 def create_emprestimo_endpoint(emprestimo: EmprestimoCreate, db: Session = Depends(get_db)):
     return create_emprestimo(db, emprestimo)
+
+@app.get('/emprestimos/', response_model=list[EmprestimoResponse])
+def get_emprestimos_enpoint(db: Session = Depends(get_db)):
+    db_emprestimos = get_emprestimos(db)
+    if db_emprestimos is None:
+        raise HTTPException(status_code=404, detail="Nenhum Empréstimo foim encontrado")
+    return db_emprestimos
+
+@app.get("/emprestimos/{emprestimo_id}", response_model=EmprestimoResponse)
+def get_emprestismo_endpoint(emprestimo_id: int,db: Session = Depends(get_db)):
+    db_emprestimo =  get_emprestimo(db, emprestimo_id)
+    if db_emprestimo is None:
+        raise HTTPException(status_code=404, detail="Emprestimo não encontrado")
+    return db_emprestimo

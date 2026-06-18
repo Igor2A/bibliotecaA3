@@ -154,13 +154,13 @@ def update_livro(db:Session, livro_id: int, livro: LivroCreate):
     db_livro = get_livro(db, livro_id)
     if db_livro is None:
         return None
-    db_livro.nome = livro.nome,
-    db_livro.autor = livro.autor,
-    db_livro.editora = livro.editora,
-    db_livro.ano = livro.ano,
-    db_livro.edicao = livro.edicao,
-    db_livro.numero_pags = livro.numero_pags,
-    db_livro.categoria = livro.categoria,
+    db_livro.nome = livro.nome
+    db_livro.autor = livro.autor
+    db_livro.editora = livro.editora
+    db_livro.ano = livro.ano
+    db_livro.edicao = livro.edicao
+    db_livro.numero_pags = livro.numero_pags
+    db_livro.categoria = livro.categoria
     db_livro.idioma = livro.idioma
     db.commit()
     db.refresh(db_livro)
@@ -194,12 +194,11 @@ def update_aluno(db: Session, aluno_id: int, aluno: AlunoCreate):
     db_aluno = get_aluno(db,aluno_id)
     if db_aluno is None:
         return None
-    db_aluno.nome = aluno.nome,
-    db_aluno.curso = aluno.curso,
-    db_aluno.email = aluno.email,
-    db_aluno.endereco = aluno.endereco,
+    db_aluno.nome = aluno.nome
+    db_aluno.curso = aluno.curso
+    db_aluno.email = aluno.email
+    db_aluno.endereco = aluno.endereco
     db_aluno.telefone = aluno.telefone
-    db.add(db_aluno)
     db.commit()
     db.refresh(db_aluno)
     return db_aluno
